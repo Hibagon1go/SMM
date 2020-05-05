@@ -8,6 +8,8 @@ from django.db import models
 from django.utils import timezone
 from django.utils.translation import gettext_lazy as _
 
+from django.urls import reverse
+
 
 # User-related
 class UserManager(BaseUserManager):
@@ -102,5 +104,11 @@ class AbstractUser(AbstractBaseUser, PermissionsMixin):
 
 
 class User(AbstractUser):
+    icon = models.ImageField(upload_to="image/", blank=True, null=True)
+
+    def get_absolute_url(self):
+        return reverse('ginstagram:profile', kwargs={"username": self.username})
+    
     class Meta(AbstractUser.Meta):
         swappable = "AUTH_USER_MODEL"
+
