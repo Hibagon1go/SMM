@@ -36,8 +36,9 @@
                 <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">ログイン</a></li>
                 {% else %}
                 <!-- ログインしていたらこっち -->
-                <li class="nav-item"><a class="nav-link" href="{% url 'posts:index' %}">ディスカバリー</a></li> <!--ここを編集-->
-                <li class="nav-item"><a class="nav-link" href="{% url 'posts:new' %}">投稿</a></li> <!--ここを編集-->
+                <li class="nav-item"><a class="nav-link" href="{% url 'posts:all' %}">ジャンル別全ての人の投稿/ </a></li> <!--ここを編集-->                 
+                <li class="nav-item"><a class="nav-link" href="{% url 'posts:index' %}">フォロー中の人の投稿/ </a></li> <!--ここを編集--> 
+                <li class="nav-item"><a class="nav-link" href="{% url 'posts:new' %}">投稿する/ </a></li> <!--ここを編集-->
                 <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">ログアウト</a></li>
                 {% endif %}
                  <!-- 追加ここまで --> 

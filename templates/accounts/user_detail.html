@@ -1,4 +1,5 @@
 {% extends "base/app.html" %}
+{% load custom_filter %} 
 {% block contents %}
 <div class="container">
     <!-- アカウント情報 -->
@@ -12,16 +13,32 @@
             <h2>
                 {{user.username}}
             </h2>
-            <!-- ここから追加 -->
             {% if user.id == login_user.id %}
             <a href="{% url 'accounts:icon_edit' %}">
                 <button class="btn btn-primary">
                     <i class="fas fa-cog"></i> アイコン編集する
                 </button>
             </a>
+
+            <!--追加ここから-->           
+            {% else %}
+            <a href="{% url 'accounts:follow' %}">
+                <button class="btn btn-primary">
+                    <i class="fas fa-cog"></i> フォローする
+                </button>
             {% endif %}
+            <a href="{% url 'accounts:followlist' %}">
+                <button class="btn btn-primary">
+                    <i class="fas fa-cog"></i> フォロー/フォロワー
+                </button>
+            <a href="{% url 'accounts:mypost' %}">
+                <button class="btn btn-primary">
+                    <i class="fas fa-cog"></i> 投稿一覧
+                </button>
+
             <!-- 追加ここまで -->
         </div>
     </div>
 </div>
+
 {% endblock %}

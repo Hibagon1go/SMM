@@ -64,6 +64,9 @@ class AbstractUser(AbstractBaseUser, PermissionsMixin):
     last_name = models.CharField(_('last name'), max_length=150, blank=True)
 
     email = models.EmailField(_('email address'), unique=True)
+ 
+    followees = models.ManyToManyField('self', blank=True, symmetrical=False) #added
+
 
     is_staff = models.BooleanField(
         _('staff status'),

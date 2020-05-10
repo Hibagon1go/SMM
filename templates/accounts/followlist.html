@@ -1,0 +1,12 @@
+{% extends "base/app.html" %}
+{% block contents %}
+<h2> フォロー　</h2>
+{% for followee in followees%}
+    {{ followee }}
+{% endfor %}
+<h2> フォロワー </h2>
+{% for follower in followers%}
+    {{ follower }}
+{% endfor %}
+<a href="{% url 'accounts:userDetail' user.username %}" class="text-dark">戻る</a>
+{% endblock %}
