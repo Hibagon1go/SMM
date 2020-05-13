@@ -6,7 +6,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>TechpitGram</title>
+    <title>SHARE_MY_MAJOR</title>
     {% load static %}
     <!-- 必要なライブラリインポート -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.4.2/css/all.css" integrity="sha384-/rXc/GQVaYpyDdyxK+ecHPVYJSN9bmVFBvjA/9eOB+pb3F2w2N6fc5qB9Ew5yIns"
@@ -25,7 +25,7 @@
     <header>
         <nav class="navbar navbar-light bg-light box-shadow  scrolling-navbar">
             <a class="navbar-brand" href="/">
-                TechpitGram
+                SHARE_MY＿MAJOR
             </a>
             <ul class="navbar-nav flex-row ml-md-auto">
 
@@ -36,7 +36,7 @@
                 <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">ログイン</a></li>
                 {% else %}
                 <!-- ログインしていたらこっち -->
-                <li class="nav-item"><a class="nav-link" href="{% url 'posts:all' %}">ジャンル別全ての人の投稿/ </a></li> <!--ここを編集-->                 
+                <li class="nav-item"><a class="nav-link" href="{% url 'posts:all' %}">ジャンル別全ての人の投稿/ </a></li><!--ここを編集-->                  
                 <li class="nav-item"><a class="nav-link" href="{% url 'posts:index' %}">フォロー中の人の投稿/ </a></li> <!--ここを編集--> 
                 <li class="nav-item"><a class="nav-link" href="{% url 'posts:new' %}">投稿する/ </a></li> <!--ここを編集-->
                 <li class="nav-item"><a class="nav-link" href="{% url 'logout' %}">ログアウト</a></li>

@@ -79,9 +79,9 @@ class UserFollowView(View): #added
             login_user.followees.add(user)
             return messages.success(request, 'フォローしました')
 
-        #return reverse(
-            #'accounts:userDetail',
-            #kwargs={'username': user.username})
+        return reverse(
+            'accounts:userDetail',
+            kwargs={'username': user.username})
 
 
 class FollowListView(ListView):#added

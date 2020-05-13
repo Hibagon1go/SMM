@@ -18,31 +18,33 @@
             <div class="card">
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item"><a href="{% url 'accounts:userDetail' post.author.username %}" class="text-dark"><img
-                                src="{{ post.author.icon.url }}" class="timeline-icon" style="height:3%">
+                                src="{{ post.author.icon.url }}" class="timeline-icon" style="height:30">
                             {{ post.author.username }}
                         </a>
                     </li>
                 </ul>
-                <img src="{{post.picture.url}}" class="card-img" />
+
                 <div class="card-body">
+
+                <div class="card-hedder">
+                    <div><span class="mr-2"> {{ post.text }}</div>
+                </div>
+                {% if post.picture %}
+                    <img src="{{post.picture.url}}" class="card-img" width="auto" height="auto" />
+                {% endif %}                
+
                     <div class="like_list_{{post.id}}">
                         <!-- ここにお気に入り機能を実装していく -->
                         {{ post|is_like:user }}
                         {{ like_list|get_likes:post.id }}
-                        <!-- ここから新規追加 -->
                         </br>
                         {{ comment_list|get_comment_list:post.id }}
-                        <!-- 新規追加ここまで -->
+
                     </div>
                     <div class="likes_total_{{post.id}}">
                        {{ likes_total|plus_like:post.id }}
                     </div>                    
 
-                    <div class="card-hedder">
-
-                        <div><span class="mr-2">@{{ post.author.username }}</span>{{ post.text }}</div>
-
-                    </div>
                     <div class="pt-2">
                         <small>
                             投稿時間{{ post.created_at|date:'Y-m-d H:i' }}
@@ -50,16 +52,15 @@
                     </div>
 
                 </div>
-                <!-- ここから新規追加 -->
-                <div class="card-footer">
-                    コメント投稿
-                    <form class="comment" id="{{post.id}}">
-                        {% csrf_token %}
-                        <input class="form-control col-12" name="comment" type="text" class="comment">
+　　
+            <div class="card-footer">
+                コメント投稿
+                <form class="comment" id="{{post.id}}">
+                    {% csrf_token %}
+                    <input class="form-control col-12" name="comment" type="text" class="comment">
 
-                    </form>
-                </div>
-                <!-- 新規追加ここまで -->
+                </form>
+            </div>
 
             </div>
         </div>
@@ -116,8 +117,7 @@
 
             })
             .done((data) => {
-                $('.like_list_' + form.attr("id")).html(data);
-                $('.likes_total_' + post_id).html(data); //added                  
+                $('.like_list_' + form.attr("id")).html(data);                 
             })
     }
     // 新規追加ここまで

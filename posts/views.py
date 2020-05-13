@@ -37,7 +37,7 @@ class Index(ListView):
         context = {}  
         for post in Context['post_list']: 
             if (post.author in followees) or (post.author == user):
-                context['post_list'] = Post.objects.filter(id=post.id)
+                context['post_list'] = Post.objects.filter(author=post.author)
                 Post_lst.append([post.id,post])
 
         for i in Post_lst:
@@ -71,6 +71,7 @@ class Likes(View):
         comment_list[post.id] = Comment.objects.filter(post=post) 
         likes_total[post.id] = len(Like.objects.filter(post=post)) #added
         return render(request, 'posts/like.html', {
+            'user' : self.request.user,
             'like_list': like_list,
             'comment_list': comment_list,  
             'likes_total' : likes_total, #added
@@ -95,6 +96,7 @@ class AddComment(View):
         likes_total[post.id] = len(Like.objects.filter(post=post)) #added
         
         return render(request, 'posts/like.html', {
+            'user' : self.request.user,
             'like_list': like_list,
             'comment_list': comment_list,
             'likes_total' : likes_total,
@@ -103,18 +105,19 @@ class AddComment(View):
 
 class All(ListView):
     model = Post
-    template_name = 'posts/index.html'
+    template_name = 'posts/all.html'
     paginate_by = 100
     queryset = Post.objects.order_by('created_at').reverse()
 
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
-        user = self.request.user
+        user = self.request.user #added
+        followees = user.followees.all() #added
         like_list = {}
         comment_list = {}
         likes_total = {}
         Post_lst = []   
-        for post in context['post_list']: 
+        for post in context['post_list']:
             Post_lst.append([post.id,post])
 
         for i in Post_lst:
@@ -126,6 +129,7 @@ class All(ListView):
         context['likes_total'] = likes_total #added
         context['comment_list'] = comment_list  
         return context
+
 
 
 

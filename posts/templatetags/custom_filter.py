@@ -1,6 +1,6 @@
 from django import template
 from django.utils.safestring import mark_safe
-from ..models import Like
+from ..models import Like,Comment
 register = template.Library()
 
 
@@ -25,11 +25,13 @@ def is_like(post, user):
 
 @register.filter(name='plus_like')
 def plus_like(likes_total, key):
-    if key in likes_total:   
-        return mark_safe("面白い・勉強になった! 人の数: "+str(likes_total[key])+"人")
+    text= ""
+    if key in likes_total:
+        text += f"面白い・勉強になった! 人の数: "+str(likes_total[key])+"人"   
     else:
-        return mark_safe("面白い・勉強になった! 人の数: "+"0"+"人")
-# 以下追加
+        text += f"面白い・勉強になった! 人の数: "+"0"+"人"
+    return text
+
 @register.filter(name='get_comment_list')
 def get_comment_list(comment_list, key):
     text = ""
