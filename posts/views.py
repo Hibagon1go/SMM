@@ -27,18 +27,16 @@ class Index(ListView):
     queryset = Post.objects.order_by('created_at').reverse()
 
     def get_context_data(self, **kwargs):
-        Context = super().get_context_data()
         user = self.request.user #added
-        followees = user.followees.all() #added
+        followees = list(user.followees.all()) #added
+        context = {}
         like_list = {}
         comment_list = {}
         likes_total = {}
         Post_lst = []   
-        context = {}  
-        for post in Context['post_list']: 
-            if (post.author in followees) or (post.author == user):
-                context['post_list'] = Post.objects.filter(author=post.author)
-                Post_lst.append([post.id,post])
+        context['post_list']=Post.objects.filter(author__in=followees).order_by('created_at').reverse()
+        for post in context['post_list']: 
+            Post_lst.append([post.id,post])            
 
         for i in Post_lst:
             like_list[i[0]] = Like.objects.filter(post=i[1])
