@@ -44,6 +44,7 @@ class AccountDetailView(DetailView):
     def get_context_data(self, **kwargs):
         context = super().get_context_data()
         context['login_user'] = self.request.user
+        context['username'] = self.kwargs['username']
         return context
 
 # 以下のコードを追加
@@ -62,54 +63,58 @@ class IconEdit(UpdateView):
             'accounts:userDetail',
             kwargs={'username': self.request.user.username})
 
-class UserFollowView(View): #added
+class UserFollowView(UpdateView): #added
     model = User
-    template_name = 'accounts/user_detail.html'
+    template_name = 'accounts/follow.html'
+    fields = ['followees']
+    slug_field = 'username'
+    slug_url_kwarg = 'username'
     
     #@require_POST
-    def user_follow(self, request):
-        login_user = request.user
-        user = User.objects.get(username=user.username) #added ここは今いるページのユーザーの情報を取りたい
-        followees = login_user.followees.all() #added
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data()
+        login_user = self.request.user
+        user = User.objects.get(username=self.kwargs['username']) #added ここは今いるページのユーザーの情報を取りたい
+        followees_all = login_user.followees.all() #added
         #今見ているページの人が既にフォローしていれば解除、していなければフォロー
-        if user in followees:
+        if user in followees_all:
             login_user.followees.remove(user)
-            return messages.success(request, 'フォローを解除しました')
         else:
             login_user.followees.add(user)
-            return messages.success(request, 'フォローしました')
-
-        return reverse(
-            'accounts:userDetail',
-            kwargs={'username': user.username})
+        context['username'] = user.username
+        return context 
 
 
 class FollowListView(ListView):#added
     model = User
     template_name = 'accounts/followlist.html'
+    slug_field = 'username'
+    slug_url_kwarg = 'username'    
 
-    def users_followlist(self, request): 
-        user = user
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data() 
+        user = User.objects.get(username=self.kwargs['username'])
         #その人がフォローしているユーザー
         followees = user.followees.all()
         #その人をフォローしているユーザー
         followers = User.objects.filter(followees=user)
-        context = {
-            'user': user,
-            'followees': followees,
-            'followers': followers,
-        }
-        return render(request, 'accounts/followlist.html', context)    
+        context['username'] = user.username
+        context['followees'] = followees
+        context['followers'] = followers
+
+        return context    
 
 class MyPostView(ListView): #added
     model = Post
     template_name = 'posts/index.html'
     paginate_by = 100
     queryset = Post.objects.order_by('created_at').reverse()
+    slug_field = 'username'
+    slug_url_kwarg = 'username'
 
     def get_context_data(self, **kwargs):
         Context = super().get_context_data()
-        user = self.request.user #added
+        user = User.objects.get(username=self.kwargs['username']) #added
         like_list = {}
         comment_list = {}
         likes_total = {}

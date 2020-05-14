@@ -1,0 +1,5 @@
+{% extends "base/app.html" %}
+{% block contents %}
+フォローが完了しました
+<a href="{% url 'accounts:userDetail' username %}" class="text-dark">戻る</a>
+{% endblock %}

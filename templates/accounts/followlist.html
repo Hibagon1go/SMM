@@ -2,11 +2,20 @@
 {% block contents %}
 <h2> フォロー　</h2>
 {% for followee in followees%}
-    {{ followee }}
+        <li class="list-group-item"><a href="{% url 'accounts:userDetail' followee.username %}" class="text-dark"><img
+                                src="{{ followee.icon.url }}" class="timeline-icon" style="height:30">
+            {{ followee.username }}
+             </a>
+        </li>    
 {% endfor %}
 <h2> フォロワー </h2>
 {% for follower in followers%}
-    {{ follower }}
+        <li class="list-group-item"><a href="{% url 'accounts:userDetail' follower.username %}" class="text-dark"><img
+                                src="{{ follower.icon.url }}" class="timeline-icon" style="height:30">
+            {{ follower.username }}
+             </a>
+        </li>    
+
 {% endfor %}
-<a href="{% url 'accounts:userDetail' user.username %}" class="text-dark">戻る</a>
+<a href="{% url 'accounts:userDetail' username %}" class="text-dark">戻る</a>
 {% endblock %}

@@ -22,16 +22,16 @@
 
             <!--追加ここから-->           
             {% else %}
-            <a href="{% url 'accounts:follow' %}">
+            <a href="{% url 'accounts:follow' username %}">
                 <button class="btn btn-primary">
                     <i class="fas fa-cog"></i> フォローする
                 </button>
             {% endif %}
-            <a href="{% url 'accounts:followlist' %}">
+            <a href="{% url 'accounts:followlist' username %}">
                 <button class="btn btn-primary">
                     <i class="fas fa-cog"></i> フォロー/フォロワー
                 </button>
-            <a href="{% url 'accounts:mypost' %}">
+            <a href="{% url 'accounts:mypost' username %}">
                 <button class="btn btn-primary">
                     <i class="fas fa-cog"></i> 投稿一覧
                 </button>
