@@ -3,6 +3,7 @@ from django.urls import path
 from django.contrib.auth.decorators import login_required
 
 from . import views
+from posts.views import PostDetailView, CategoryListView, TagListView
 
 app_name = 'posts'
 
@@ -12,4 +13,7 @@ urlpatterns = [
     path('all/', login_required(views.All.as_view()), name='all'),
     path('<postId>/like/', login_required(views.Likes.as_view()), name='like'),
     path('<postId>/comment/', login_required(views.AddComment.as_view()),name='comment'), 
+    path('<postId>/', PostDetailView.as_view(), name='post_detail'),
+    path('categories/', CategoryListView.as_view(), name='category_list'),
+    path('tags/', TagListView.as_view(), name='tag_list'),    
 ]

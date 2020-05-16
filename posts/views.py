@@ -1,11 +1,15 @@
-from django.shortcuts import render
+from django.shortcuts import render,redirect
 from django.views.generic.edit import CreateView
 from django.views.generic import ListView
 from django.urls import reverse_lazy
 from django.views import  View
+from django.db import models
+from django.db.models import Count, Q
+from django.http import Http404
+from django.views.generic.detail import DetailView
 
 from .forms import PostForm
-from .models import Post,Like,Comment
+from .models import Post,Like,Comment,Category,Tag
 from accounts.models import User #added
 
 
@@ -14,11 +18,20 @@ from accounts.models import User #added
 class New(CreateView):
     template_name = 'posts/new.html'
     form_class = PostForm
-    success_url = reverse_lazy('posts:index')
 
-    def form_valid(self, form):
-        form.instance.author_id = self.request.user.id
-        return super(New, self).form_valid(form)
+    def form_valid(self, request):
+        if self.request.method == "POST":
+            form = PostForm(self.request.POST)
+            if form.is_valid():
+                post = form.save(commit=False)
+                post.author = self.request.user
+                post.save()
+                return redirect('posts:index')
+        else:
+            form = PostForm()
+        
+        return render(request, 'posts/index.html', {'form': form})
+            
 
 class Index(ListView):
     model = Post
@@ -27,8 +40,9 @@ class Index(ListView):
     queryset = Post.objects.order_by('created_at').reverse()
 
     def get_context_data(self, **kwargs):
-        user = self.request.user #added
-        followees = list(user.followees.all()) #added
+        user = self.request.user 
+        followees = list(user.followees.all())
+        followees.append(user)
         context = {}
         like_list = {}
         comment_list = {}
@@ -128,7 +142,27 @@ class All(ListView):
         context['comment_list'] = comment_list  
         return context
 
+class PostDetailView(DetailView):
+    model = Post
+    template_name = 'posts/post_detail.html'
+    slug_field = 'post'
+    slug_url_kwarg = 'postId'
 
+    def get(self, request, postId):
+        post = Post.objects.get(id=postId)
+        return render(request, 'posts/post_detail.html', {
+            'post': post
+        })
+
+
+class CategoryListView(ListView):
+    queryset = Category.objects.annotate(
+        num_posts=Count('post', filter=Q(post__is_public=True)))
+
+
+class TagListView(ListView):
+    queryset = Tag.objects.annotate(num_posts=Count(
+        'post', filter=Q(post__is_public=True)))
 
 
 
