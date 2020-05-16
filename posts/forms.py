@@ -19,7 +19,7 @@ Category_Choices = (
 class PostForm(forms.ModelForm):
     class Meta:
         model = Post
-        fields = ("title", "category", "picture", "text", "tags", "is_public")
+        fields = ("title", "picture", "text", "tags", "is_public")
 
 class CategoryChoiceForm(forms.Form):
     choice = forms.ChoiceField(choices=Category_Choices, required=True)
