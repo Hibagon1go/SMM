@@ -1,9 +1,11 @@
 {% extends "base/app.html" %}
 
+{% block title %}{% if post_list %}{{ query }}{% endif %} | {{ block.super }}{% endblock %}
+{% block description %}検索ワード「{% if post_list %}{{ query }}{% endif %}」での検索結果ページです。{% endblock %}
+
 {% load custom_filter %}
 
 {% block contents %}
-
 <!-- timeline section-->
 <section>
     <!-- 投稿がなかったら投稿を促す -->
@@ -120,7 +122,7 @@
         <div class="col-6 offset-3 text-center">
             <div class="jumbotron jumbotron-fluid">
                 <div class="container">
-                    <p class="lead"><a href="{% url 'posts:new' %}">投稿</a>して他のユーザーに見つけてもらおう</p>
+                    <p class="lead">記事がヒットしませんでした</p>
                 </div>
             </div>
         </div>
@@ -171,5 +173,4 @@
     }
     // 新規追加ここまで
 </script>
-
 {% endblock contents %}

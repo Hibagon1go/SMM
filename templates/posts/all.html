@@ -10,6 +10,46 @@
     <button class="btn btn-primary">
         <i class="fas fa-cog"></i> マイページ
     </button>    
+    <a href="{% url 'posts:law_politics' %}">
+    <button class="btn btn-primary">
+        <i class="fas fa-cog"></i> 法律/政治系
+    </button> 
+    <a href="{% url 'posts:medical' %}">
+    <button class="btn btn-primary">
+        <i class="fas fa-cog"></i> 医療系
+    </button> 
+    <a href="{% url 'posts:engineering' %}">
+    <button class="btn btn-primary">
+        <i class="fas fa-cog"></i> 工学系
+    </button>  
+    <a href="{% url 'posts:society' %}">
+    <button class="btn btn-primary">
+        <i class="fas fa-cog"></i> 社会学系
+    </button>      
+    <a href="{% url 'posts:science' %}">
+    <button class="btn btn-primary">
+        <i class="fas fa-cog"></i> 理学系
+    </button>  
+    <a href="{% url 'posts:agriculture' %}">
+    <button class="btn btn-primary">
+        <i class="fas fa-cog"></i> 農学系
+    </button>  
+    <a href="{% url 'posts:economics' %}">
+    <button class="btn btn-primary">
+        <i class="fas fa-cog"></i> 経済系
+    </button>  
+    <a href="{% url 'posts:education' %}">
+    <button class="btn btn-primary">
+        <i class="fas fa-cog"></i> 教育系
+    </button>  
+    <a href="{% url 'posts:liberal_arts' %}">
+    <button class="btn btn-primary">
+        <i class="fas fa-cog"></i> 教養
+    </button>              
+    <a href="{% url 'posts:nongenre' %}">
+    <button class="btn btn-primary">
+        <i class="fas fa-cog"></i> ノンジャンル
+    </button>  
 
     {% if post_list %}
     {% for post in post_list %}

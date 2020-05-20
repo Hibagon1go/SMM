@@ -3,14 +3,13 @@
 {% load custom_filter %}
 
 {% block contents %}
-
 <!-- timeline section-->
 <section>
     <!-- 投稿がなかったら投稿を促す -->
     <a href="{% url 'accounts:userDetail' username %}">
     <button class="btn btn-primary">
         <i class="fas fa-cog"></i> マイページ
-    </button> 
+    </button>    
     <a href="{% url 'posts:law_politics' %}">
     <button class="btn btn-primary">
         <i class="fas fa-cog"></i> 法律/政治系
@@ -50,7 +49,8 @@
     <a href="{% url 'posts:nongenre' %}">
     <button class="btn btn-primary">
         <i class="fas fa-cog"></i> ノンジャンル
-    </button>         
+    </button>  
+
 
     {% if post_list %}
     {% for post in post_list %}
@@ -61,7 +61,7 @@
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item"><a href="{% url 'accounts:userDetail' post.author.username %}" class="text-dark"><img
                                 src="{{ post.author.icon.url }}" class="timeline-icon" style="height:30">
-                                {{ post.author.username }}
+                            {{ post.author.username }}
                         </a>
                     </li>
                 </ul>
@@ -171,5 +171,4 @@
     }
     // 新規追加ここまで
 </script>
-
 {% endblock contents %}

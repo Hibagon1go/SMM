@@ -1,0 +1,26 @@
+
+<div class="card mb-3">
+  <div class="card-header">
+  <h2>カテゴリ一覧</h2>
+  </div>
+　　<ul class="list-group list-group-flush">
+  　　{% if law_politics %}
+     　　<a href="{% url 'posts/law_politics' %}" class="card-link">法律/政治系</a>
+  　　{% else %}
+　　　　　法律/政治系カテゴリはありません。　　
+  　　{% endif %}
+
+  　　{% if medical %}
+     　　　<a href="{% url 'posts:medical' %}">
+  　　{% else %}
+  　　　　医療系カテゴリはありません。
+  　　{% endif %}
+
+  　　{% if nongenre %}
+     　　<a href="{% url 'posts:nongenre' %}">
+  　　{% else %}
+  　　　　ノンジャンルカテゴリはありません。
+  　　{% endif%}
+
+　　</ul>
+</div>
