@@ -1,0 +1,12 @@
+
+{% extends 'blog/base.html' %}
+
+{% block content %}
+<a href="{% url 'blog:index' %}">トップページに戻る</a>
+
+<form action="{% url 'blog:add_form' %}" method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">投稿</button>
+</form>
+{% endblock %}
