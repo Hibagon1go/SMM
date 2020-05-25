@@ -108,23 +108,19 @@ class MyPostView(ListView): #added
     model = Post
     template_name = 'posts/index.html'
     paginate_by = 100
-    queryset = Post.objects.order_by('created_at').reverse()
     slug_field = 'username'
     slug_url_kwarg = 'username'
 
     def get_context_data(self, **kwargs):
-        Context = super().get_context_data()
         user = User.objects.get(username=self.kwargs['username']) #added
         like_list = {}
         comment_list = {}
         likes_total = {}
         Post_lst = []   
         context = {}  
-        for post in Context['post_list']: 
-            if post.author == user:
-                context['post_list'] = Post.objects.filter(id=post.id)
-                Post_lst.append([post.id,post])
-
+        context['post_list'] = Post.objects.filter(author=user.pk).order_by('created_at').reverse()
+        for post in context['post_list']: 
+            Post_lst.append([post.id,post])
         for i in Post_lst:
             like_list[i[0]] = Like.objects.filter(post=i[1])
             comment_list[i[0]] = Comment.objects.filter(post=i[1])  

@@ -4,7 +4,6 @@ from django.contrib.auth.decorators import login_required
 
 from . import views
 from posts.views import PostDetailView, TagListView, Law_Politics_View, Medical_View, Engineering_View, Society_View, Science_View, Agriculture_View, Economics_View, Education_View, Liberal_Arts_View, Nongenre_View, SearchPostView #CategoryListView
-
 app_name = 'posts'
 
 urlpatterns = [
@@ -21,7 +20,7 @@ urlpatterns = [
     path('economics/', login_required(Economics_View.as_view()), name='economics'),    
     path('education/', login_required(Education_View.as_view()), name='education'),
     path('liberal_arts/', login_required(Liberal_Arts_View.as_view()), name='liberal_arts'),  
-    path('nongenre/', login_required(Nongenre_View.as_view()), name='nongenre'),      
+    path('nongenre/', login_required(Nongenre_View.as_view()), name='nongenre'),   
     path('<postId>/like/', login_required(views.Likes.as_view()), name='like'),
     path('<postId>/comment/', login_required(views.AddComment.as_view()),name='comment'), 
     path('<postId>/', PostDetailView.as_view(), name='post_detail'),
