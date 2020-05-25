@@ -1,7 +1,7 @@
 from django import forms
 
 from .models import Post
-
+from django_summernote.widgets import SummernoteWidget
         
 Category_Choices = (
     ('law_politics', '法学・政治学'),
@@ -12,8 +12,8 @@ Category_Choices = (
     ('agriculture', '農学'),
     ('economics', '経済学'),
     ('liberal_arts', '教養'),
-    ('education', '教育学'),
-) #分野の選択肢 added
+    ('education', '教育学')
+)
 
 
 
@@ -35,7 +35,9 @@ class PostForm(forms.ModelForm):
         required=True, widget=forms.widgets.Select)     
         fields = ("title", "picture", "text", "is_public",
                   "law_politics", "medical", "engineering", "society", "science", "agriculture", "economics", "education", "liberal_arts", "nongenre") 
-
+        widgets = {
+                'text': SummernoteWidget(),
+        }
 
 
 
