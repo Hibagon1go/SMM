@@ -143,6 +143,8 @@ class All(ListView):
         context['comment_list'] = comment_list  
         return context
 
+from django.utils.safestring import mark_safe
+
 class PostDetailView(DetailView):
     model = Post
     template_name = 'posts/post_detail.html'
@@ -152,7 +154,8 @@ class PostDetailView(DetailView):
     def get(self, request, postId):
         post = Post.objects.get(id=postId)
         return render(request, 'posts/post_detail.html', {
-            'post': post
+            'post': post,
+            'text': mark_safe(post.text)
         })
 
 
