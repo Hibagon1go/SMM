@@ -40,9 +40,8 @@ class Post(models.Model):
         'accounts.User', on_delete=models.CASCADE)
     #category = models.ForeignKey(Category, on_delete=models.PROTECT, null=True)
     tags = models.ManyToManyField(Tag, blank=True)
-    title = models.CharField(max_length=255, default='タイトルを入力してください')
-    picture = models.ImageField(
-        upload_to="image/posts/", blank=True, null=True)
+    title = models.CharField("タイトルを記入してください",max_length=255) #UI変化
+    
     text = models.TextField(blank=True)
     created_at = models.DateTimeField(auto_now_add=True, blank=True)
     updated_at = models.DateTimeField(auto_now=True)

@@ -33,7 +33,7 @@ class PostForm(forms.ModelForm):
             ('ノンジャンル', 'nongenre')
         ),
         required=True, widget=forms.widgets.Select)     
-        fields = ("title", "picture", "text", "is_public",
+        fields = ("title", "text", "is_public",
                   "law_politics", "medical", "engineering", "society", "science", "agriculture", "economics", "education", "liberal_arts", "nongenre") 
         widgets = {
                 'text': SummernoteWidget(),
