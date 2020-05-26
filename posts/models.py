@@ -40,7 +40,7 @@ class Post(models.Model):
         'accounts.User', on_delete=models.CASCADE)
     #category = models.ForeignKey(Category, on_delete=models.PROTECT, null=True)
     tags = models.ManyToManyField(Tag, blank=True)
-    title = models.CharField(max_length=255, default='タイトルを入力してください')
+    title = models.CharField('タイトルを入力してください',max_length=255)
     picture = models.ImageField(
         upload_to="image/posts/", blank=True, null=True)
     text = models.TextField(blank=True)
@@ -52,7 +52,7 @@ class Post(models.Model):
     medical = models.BooleanField(default=False)
     engineering = models.BooleanField(default=False)
     society = models.BooleanField(default=False)
-    science = models.BooleanField(default=False)
+    science = models.BooleanField('理学系',default=False)
     agriculture = models.BooleanField(default=False)
     economics = models.BooleanField(default=False)
     education = models.BooleanField(default=False)

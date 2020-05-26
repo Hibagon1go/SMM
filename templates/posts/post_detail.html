@@ -1,9 +1,9 @@
 {% extends 'base/new_post.html' %}
 
 {% block content %}
-
+<div class="container">
 <div style="display:background:#eeffff; padding:15px; border:1px solid #3b5998; border-radius:10px; word-break:break-all;">
-<h2>Title: {{post.title}}</h2><a href="{% url 'accounts:userDetail' post.author.username %}" class="text-dark"><img
+<h2>{{post.title}}</h2><a href="{% url 'accounts:userDetail' post.author.username %}" class="text-dark"><img
                                 src="{{ post.author.icon.url }}" class="timeline-icon" style="height:75">
 {{ post.author.username }}</a>さんの記事     
 <small>
@@ -13,6 +13,7 @@
 <div style="display:inline-block; background:#fcfcff; padding:15px; border:1px solid #3b5998; border-radius:10px; word-break:break-all;">
 
        {{ text }}
+</div>
 </div>
 {% endblock %}
 
